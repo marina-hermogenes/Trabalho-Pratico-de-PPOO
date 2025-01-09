@@ -5,15 +5,16 @@ public abstract class Pessoa {
     //Atributos
     public static final int tempoMaxProduto = 1500;
 
-    static final Random  random = new Random(15675);
+    private static Random  random = new Random(15675);
     public static final int tempoProduto = random.nextInt(tempoMaxProduto);
-    private boolean preferencial = false;
+    private boolean preferencial;
     
     private Localizacao localizacao;
     private Image imagem;
     
     //Construtor
     public Pessoa(Localizacao localizacao, Image imagem) {
+        preferencial = false;
         if (random.nextInt(4) == 0) {
             preferencial = true;
         }
