@@ -1,12 +1,13 @@
 import java.util.Random;
+import java.awt.Image;
 
 public class Caixa extends Pessoa{
-    Fila filaCaixa;
+    public Fila filaCaixa;
 
     //Construtor
-    public Caixa(Localizacao local, Imagem imagem){
+    public Caixa(Localizacao local, Image imagem) {
         super(local, imagem);
-        this.filaCaixa = new Fila();
+        filaCaixa = new Fila();
     }
 
     //Método que retorna o tempo de atendimento do cliente
