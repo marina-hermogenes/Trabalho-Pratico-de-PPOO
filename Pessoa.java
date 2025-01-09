@@ -5,22 +5,18 @@ public abstract class Pessoa {
     //Atributos
     public static final int tempoMaxProduto = 1500;
 
-    Random random = new Random();
+    static final Random  random = new Random(15675);
     public static final int tempoProduto = random.nextInt(tempoMaxProduto);
-
-    //Define um número aleatório para definir se a pessoa é preferencial ou não
-    int numero = random.nextInt(4);
-    if (numero == 0) {
-        private boolean preferencial = true;
-    } else {
-        private boolean preferencial = false;
-    }
-
+    private boolean preferencial = false;
+    
     private Localizacao localizacao;
     private Image imagem;
     
     //Construtor
     public Pessoa(Localizacao localizacao, Image imagem) {
+        if (random.nextInt(4) == 0) {
+            preferencial = true;
+        }
         this.localizacao = localizacao;
         this.imagem = imagem;
     }
