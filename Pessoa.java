@@ -21,7 +21,6 @@ public abstract class Pessoa {
     
     //Construtor
     public Pessoa(Localizacao localizacao, Image imagem) {
-        this.preferencial = preferencial;
         this.localizacao = localizacao;
         this.imagem = imagem;
     }
