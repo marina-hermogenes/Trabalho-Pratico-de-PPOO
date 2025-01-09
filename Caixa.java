@@ -13,8 +13,7 @@ public class Caixa extends Pessoa{
     @Override
     public void executarAcao(){
         if(filaCaixa.getQuantidadeClientes > 0){
-            int valor = getTempoAtendimento();
-            Thread.sleep(valor);
+            Thread.sleep(getTempoAtendimento());
             System.out.println("Cliente atendido em: " + filaCaixa.getListaClientes().get(0).getTempoAtendimento());
             filaCaixa.removerCliente(0); //posição do cliente na fila
         } 
