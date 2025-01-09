@@ -1,8 +1,10 @@
+import java.awt.Image;
+import java.util.Random;
 
 public abstract class Pessoa {
     //Atributos
-    public static final int tempoMaxProduto = ;
-    public static final int tempoProduto = ;
+    public static final int tempoMaxProduto = 1500;
+    public static final int tempoProduto = random.nextInt(tempoMaxProduto);
     private boolean preferencial;
     private Localizacao localizacao;
     private Image imagem;
