@@ -5,7 +5,7 @@ public class Fila {
     int quantidadeClientes;
 
     public Fila(){
-        listaClientes = new ArrayList<listaClientes>();
+        listaClientes = new ArrayList<Cliente>();
         quantidadeClientes = 0;
     }
 
@@ -20,8 +20,11 @@ public class Fila {
     }
 
     public ArrayList<Cliente> getListaClientes(){
-        ArrayList<Cliente> novaLista = new ArrayList<Cliente>;
-        //ver como faz para clonar
+        ArrayList<Cliente> novaLista = new ArrayList<Cliente>();
+        for (Cliente cliente : listaClientes) {
+            novaLista.add(cliente.clone());
+        }
+        return novaLista;
     }
 
     public int getQuantidadeClientes(){
