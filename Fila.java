@@ -14,8 +14,8 @@ public class Fila {
         quantidadeClientes++;
     }
 
-    public void removerCliente(Cliente cliente){
-        listaClientes.remove(cliente);
+    public void removerCliente(int posicao){
+        listaClientes.remove(posicao);
         quantidadeClientes--;
     }
 
