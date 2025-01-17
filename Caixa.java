@@ -25,4 +25,8 @@ public class Caixa extends Pessoa{
         return filaCaixa.getListaClientes().get(0).getQuantidadeProdutos() * getTempoPorProd();
     }
     //ideal ter o método de pegar o primeiro cliente da fila na classe Fila
+
+    public Fila getFila(){
+        return filaCaixa;
+    }
 }

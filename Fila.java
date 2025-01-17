@@ -14,9 +14,11 @@ public class Fila {
         quantidadeClientes++;
     }
 
-    public void removerCliente(int posicao){
+    public Cliente removerCliente(int posicao){
+        Cliente cliente = listaClientes.get(posicao);
         listaClientes.remove(posicao);
         quantidadeClientes--;
+        return cliente;
     }
 
     public ArrayList<Cliente> getListaClientes(){
