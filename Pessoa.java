@@ -11,6 +11,8 @@ public abstract class Pessoa {
     
     private Localizacao localizacao;
     private Image imagem;
+    private int altura;
+    private int largura;
     
     //Construtor
     public Pessoa(Localizacao localizacao, Image imagem) {
@@ -20,6 +22,8 @@ public abstract class Pessoa {
         }
         this.localizacao = localizacao;
         this.imagem = imagem;
+        altura = 2;
+        largura = 2;
     }
 
     //Métodos Abstratas

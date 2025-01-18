@@ -26,10 +26,14 @@ public class JanelaSimulacao extends JFrame{
         visaoMapa.preparePaint();
         for(int i = 0; i < mapa.getAltura(); i++){
             for(int j = 0; j < mapa.getLargura(); j++){
-                if(mapa.getItem(i, j) != null){//Se existir algum objeto na posicao (i,j)
-                    Veiculo veiculo = mapa.getItem(i, j);
-                    Localizacao localizacao = veiculo.getLocalizacaoAtual();
-                    visaoMapa.desenharImagem(localizacao.getX(), localizacao.getY(), veiculo.getImagem());
+                if(mapa.getCaixa(i, j) != null){//Se existir algum objeto na posicao (i,j)
+                    Caixa caixa = mapa.getCaixa(i, j);
+                    Localizacao localizacao = caixa.getLocalizacao();
+                    visaoMapa.desenharImagem(localizacao.getX(), localizacao.getY(), caixa.getImagem());
+                } else if(mapa.getCliente(i, j) != null){//Se existir algum objeto na posicao (i,j)
+                    Cliente cliente = mapa.getCliente(i, j);
+                    Localizacao localizacao = cliente.getLocalizacao();
+                    visaoMapa.desenharImagem(localizacao.getX(), localizacao.getY(), cliente.getImagem());
                 }
             }
         }

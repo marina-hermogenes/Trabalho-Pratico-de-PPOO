@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,8 +12,15 @@ public class Sistema {
     private ArrayList<Caixa> listaCaixa;
 
     public Sistema(){
-        menorFila = null;
         rand = new Random(3578);
+        int X = 2;
+        listaCaixa = new ArrayList<Caixa>();
+        Image imagemCaixa = new ImageIcon(getClass().getResource("Imagens/caixa.jpeg")).getImage();
+        for (int i = 0; i < QUANT_CAIXAS; i++){
+            listaCaixa.add(new Caixa(new Localizacao(X, 0), imagemCaixa));
+            X += 2;
+        }
+        menorFila = listaCaixa.get(0).getFila();
     }
 
     public Cliente criarCliente(){
@@ -27,11 +35,7 @@ public class Sistema {
     }
 
     public void adicionarClienteNaFila(Cliente cliente){
-        if (menorFila != null){
-            menorFila.novoCliente(cliente);
-        } else {
-            
-        }
+        menorFila.novoCliente(cliente);
     }
 
     public void moverCliente(){
@@ -39,6 +43,7 @@ public class Sistema {
             if(caixa.getFila().getQuantidadeClientes() > menorFila.getQuantidadeClientes()){
                 Cliente cliente = caixa.getFila().removerCliente((caixa.getFila().getQuantidadeClientes())-1);
                 menorFila.novoCliente(cliente);
+                cliente.trocarFilaCliente(this, menorFila);
             }
         }
     }
@@ -53,7 +58,10 @@ public class Sistema {
                 menorFila = caixa.getFila();
             }
         }
-
         return menorFila;
+    }
+
+    public ArrayList<Caixa> getListaCaixa(){
+        return listaCaixa;
     }
 }

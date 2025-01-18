@@ -1,21 +1,19 @@
 import java.util.Random;
+import java.util.ArrayList;
 /**
  * Responsavel pela simulacao.
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
 public class Simulacao {
-    private Veiculo veiculo;
+    private Sistema sistema;
     private JanelaSimulacao janelaSimulacao;
     private Mapa mapa;
+    private ArrayList<Cliente> listaCliente;
     
     public Simulacao() {
         Random rand = new Random(12345);
-        mapa = new Mapa();
-        int largura = mapa.getLargura();
-        int altura = mapa.getAltura();
-        veiculo = new Veiculo(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Cria um veiculo em uma posicao aleatoria
-        veiculo.setLocalizacaoDestino(new Localizacao(rand.nextInt(largura),rand.nextInt(altura)));//Define a posicao destino aleatoriamente
-        mapa.adicionarItem(veiculo);//Inicializando o mapa com o veículo
+        sistema = new Sistema();//Cria os caixas nas posicoes determinadas
+        mapa = new Mapa(sistema.getListaCaixa());
         janelaSimulacao = new JanelaSimulacao(mapa);
     }
     
@@ -28,9 +26,13 @@ public class Simulacao {
     }
 
     private void executarUmPasso() {
-        mapa.removerItem(veiculo);
-        veiculo.executarAcao();
-        mapa.adicionarItem(veiculo);
+        for(Caixa caixa: sistema.getListaCaixa()){
+            caixa.executarAcao();
+            for(Cliente cliente: caixa.getFila().getListaClientes()){
+                listaCliente.add(cliente);
+            }
+            mapa.atualizarMapa(listaCliente);
+        }
         janelaSimulacao.executarAcao();
     }
     

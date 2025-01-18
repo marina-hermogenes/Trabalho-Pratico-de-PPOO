@@ -30,27 +30,12 @@ public class Cliente extends Pessoa implements Cloneable{
         this.posicaoFila = posicaoFila;
     }
 
-    public void trocarFilaCliente(Sistema sistema) {
-        Fila menorFila = sistema.getMenorFila();
-    
-        Fila filaAtual = null;
-        for (Fila fila : sistema.listaFilas) {
-            if (fila.getListaClientes().contains(this)) {
-                filaAtual = fila;
-            }
-        }
-    
-        if (filaAtual != null && menorFila != null && filaAtual.getQuantidadeClientes() > menorFila.getQuantidadeClientes()) {
-            filaAtual.removerCliente(this); //removendo cliente da fila atual
-            menorFila.novoCliente(this); //adicionando cliente na menor fila
-            setPosicaoFila(menorFila.getQuantidadeClientes()); //atualizando posição dele na menor fila
-        
-            //atualizando a localizacaoDestino depois da troca de fila
-            localizacaoDestino = new Localizacao(getLocalizacao().getX(), getLocalizacao().getY() + 1); 
-            System.out.println("Cliente trocou para a fila com menos pessoas.");
-        } else {
-            System.out.println("Cliente permaneceu na mesma fila.");
-        }
+    public void trocarFilaCliente(Sistema sistema, Fila fila) { 
+        setPosicaoFila(fila.getQuantidadeClientes() - 1); //atualizando posição dele na menor fila
+
+        //atualizando a localizacaoDestino depois da troca de fila
+        localizacaoDestino = new Localizacao(getLocalizacao().getX(), getLocalizacao().getY() + 2); 
+        System.out.println("Cliente trocou para a fila com menos pessoas.");
     }
 
     public Localizacao getLocalizacaoDestino() {

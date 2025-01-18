@@ -1,9 +1,12 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 /**
  * Representa um mapa com todos os itens que participam da simulacao
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
 public class Mapa {
-    private Veiculo[][] itens;
+    private ArrayList<Cliente> listaCliente;
+    private ArrayList<Caixa> listaCaixa;
     private int largura;
     private int altura;
     
@@ -15,33 +18,43 @@ public class Mapa {
      * @param largura: largura da área de simulacao.
      * @param altura: altura da área de simulação.
      */
-    public Mapa(int largura, int altura) {
-        this.largura = largura;
-        this.altura = altura;
-        itens = new Veiculo[altura][largura];
-    }
-    /**
-     * Cria mapa com tamanho padrao.
-     */
-    public Mapa(){
-        this(LARGURA_PADRAO,ALTURA_PADRAO);
+    public Mapa(ArrayList<Caixa> listaCaixa){
+        this.largura = LARGURA_PADRAO;
+        this.altura = ALTURA_PADRAO;
+        this.listaCaixa = listaCaixa;
     }
     
-    public void adicionarItem(Veiculo v){
-        itens[v.getLocalizacaoAtual().getX()][v.getLocalizacaoAtual().getY()] = v;
+    public void adicionarCliente(Cliente novoCliente){
+        listaCliente.add(novoCliente);
     }
     
-    public void removerItem(Veiculo v){
-        itens[v.getLocalizacaoAtual().getX()][v.getLocalizacaoAtual().getY()] = null;
+    public void removerCliente(Cliente cliente){
+        listaCliente.remove(cliente);
     }
     
-    public void atualizarMapa(Veiculo v){
-        removerItem(v);
-        adicionarItem(v);
+    public void atualizarMapa(ArrayList<Cliente> listaCliente){
+        for (Cliente cliente: listaCliente){
+            removerCliente(cliente);
+            adicionarCliente(cliente);
+        }
     }
-    
-    public Veiculo getItem(int x, int y){
-        return itens[x][y];
+
+    public Cliente getCliente(int X, int Y){
+        for (Cliente cliente: listaCliente){
+            if(cliente.getLocalizacao().getX() == X && cliente.getLocalizacao().getY() == Y){
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public Caixa getCaixa(int X, int Y){
+        for (Caixa caixa: listaCaixa){
+            if(caixa.getLocalizacao().getX() == X && caixa.getLocalizacao().getY() == Y){
+                return caixa;
+            }
+        }
+        return null;
     }
 
     public int getLargura() {
