@@ -1,6 +1,6 @@
 import java.awt.Image;
 
-public class Cliente extends Pessoa implements Cloneable{
+public class Cliente extends Pessoa {
     public static final int MAX_QUANT_PRODUTOS = 50;
     private final int QUANT_PRODUTOS;
     private int posicaoFila;
@@ -48,24 +48,10 @@ public class Cliente extends Pessoa implements Cloneable{
 
     @Override
     public void executarAcao() {
-        if (localizacaoDestino != null) {
-            setLocalizacao(localizacaoDestino); //atualiza a posição do cliente para o destino
-        } else {        
-            if (posicaoFila >= 0) {
-                localizacaoDestino = new Localizacao(getLocalizacao().getX(), getLocalizacao().getY() + 1); 
-                System.out.println("Cliente avançando para a próxima posição na fila.");
-            }
-        }
+        System.out.println("Entrou em executar ação no cliente");
+            setLocalizacao(localizacaoDestino); // atualiza a posição do cliente para o destino
+            localizacaoDestino = new Localizacao(getLocalizacao().getX(), getLocalizacao().getY() - 1); 
+            System.out.println("Cliente avançando para a próxima posição na fila.");
     }
 
-    @Override
-    public Cliente clone() {
-        try {
-            return (Cliente) super.clone();
-            
-        } catch (CloneNotSupportedException e) {
-            System.out.println ("Não é permitido clonar essa classe" );
-            return this;
-        }
-    }
 }

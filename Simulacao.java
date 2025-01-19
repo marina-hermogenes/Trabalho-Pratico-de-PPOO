@@ -12,8 +12,10 @@ public class Simulacao {
     
     public Simulacao() {
         Random rand = new Random(12345);
+        listaCliente = new ArrayList<Cliente>();
         sistema = new Sistema();//Cria os caixas nas posicoes determinadas
         mapa = new Mapa(sistema.getListaCaixa());
+        sistema.adicionarMapa(mapa);
         janelaSimulacao = new JanelaSimulacao(mapa);
     }
     
@@ -26,13 +28,23 @@ public class Simulacao {
     }
 
     private void executarUmPasso() {
+        System.out.println("Entrou em executar um passo");
+        if (new Random().nextInt(2) == 0) { // Ajuste a probabilidade como desejar
+            System.out.println ("Entrou no if pra cliente");
+            Cliente novoCliente = sistema.criarCliente();
+            listaCliente.add(novoCliente);
+        }
+        
         for(Caixa caixa: sistema.getListaCaixa()){
             caixa.executarAcao();
+            System.out.println(caixa.getFila().getQuantidadeClientes());
             for(Cliente cliente: caixa.getFila().getListaClientes()){
-                listaCliente.add(cliente);
+                cliente.executarAcao();
             }
-            mapa.atualizarMapa(listaCliente);
+
         }
+
+        mapa.atualizarMapa(listaCliente);
         janelaSimulacao.executarAcao();
     }
     

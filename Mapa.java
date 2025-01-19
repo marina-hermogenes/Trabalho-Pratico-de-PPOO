@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * @author David J. Barnes and Michael Kolling and Luiz Merschmann
  */
 public class Mapa {
-    private ArrayList<Cliente> listaCliente;
-    private ArrayList<Caixa> listaCaixa;
+    private Cliente[][] clientes;
+    private Caixa[][] caixas;
     private int largura;
     private int altura;
     
@@ -21,15 +21,20 @@ public class Mapa {
     public Mapa(ArrayList<Caixa> listaCaixa){
         this.largura = LARGURA_PADRAO;
         this.altura = ALTURA_PADRAO;
-        this.listaCaixa = listaCaixa;
+        clientes = new Cliente[altura][largura];
+        caixas = new Caixa[altura][largura];
+        for (Caixa caixa: listaCaixa){
+            caixas[caixa.getLocalizacao().getX()][caixa.getLocalizacao().getY()] = caixa;
+        }
     }
     
     public void adicionarCliente(Cliente novoCliente){
-        listaCliente.add(novoCliente);
+        System.out.println("Adicionou cliente no mapa");
+        clientes[novoCliente.getLocalizacao().getX()][novoCliente.getLocalizacao().getY()] = novoCliente;
     }
     
     public void removerCliente(Cliente cliente){
-        listaCliente.remove(cliente);
+        clientes[cliente.getLocalizacao().getX()][cliente.getLocalizacao().getY()] = null;
     }
     
     public void atualizarMapa(ArrayList<Cliente> listaCliente){
@@ -39,22 +44,12 @@ public class Mapa {
         }
     }
 
-    public Cliente getCliente(int X, int Y){
-        for (Cliente cliente: listaCliente){
-            if(cliente.getLocalizacao().getX() == X && cliente.getLocalizacao().getY() == Y){
-                return cliente;
-            }
-        }
-        return null;
+    public Cliente getCliente(int x, int y){
+        return clientes[x][y];
     }
 
-    public Caixa getCaixa(int X, int Y){
-        for (Caixa caixa: listaCaixa){
-            if(caixa.getLocalizacao().getX() == X && caixa.getLocalizacao().getY() == Y){
-                return caixa;
-            }
-        }
-        return null;
+    public Caixa getCaixa(int x, int y){
+        return caixas[x][y];
     }
 
     public int getLargura() {

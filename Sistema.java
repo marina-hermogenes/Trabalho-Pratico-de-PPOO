@@ -10,6 +10,7 @@ public class Sistema {
     private Fila menorFila;
     private Random rand;
     private ArrayList<Caixa> listaCaixa;
+    private Mapa mapa;
 
     public Sistema(){
         rand = new Random(3578);
@@ -23,6 +24,10 @@ public class Sistema {
         menorFila = listaCaixa.get(0).getFila();
     }
 
+    public void adicionarMapa(Mapa mapa){
+        this.mapa = mapa;
+    }
+
     public Cliente criarCliente(){
         Image imagem;
         if (rand.nextInt(2) == 0){
@@ -30,15 +35,29 @@ public class Sistema {
         } else {
             imagem = new ImageIcon(getClass().getResource("Imagens/mulherCostas.jpeg")).getImage();
         }
-        Cliente novoCliente = new Cliente(new Localizacao(35,0), imagem);
+        Cliente novoCliente = new Cliente(new Localizacao(0,34), imagem);
+        mapa.adicionarCliente(novoCliente);
+        adicionarClienteNaFila(novoCliente);
         return novoCliente;
     }
 
     public void adicionarClienteNaFila(Cliente cliente){
+        calcularMenorFila();
         menorFila.novoCliente(cliente);
+        int localDestY;
+        int localDestX;
+        for (Caixa caixa: listaCaixa){
+            if (caixa.getFila() == menorFila){
+                localDestX = caixa.getLocalizacao().getX();
+                localDestY = caixa.getLocalizacao().getY() + menorFila.getQuantidadeClientes() + 1;
+                Localizacao localDest = new Localizacao(localDestX, localDestY);
+                cliente.setLocalizacaoDestino(localDest);
+            }
+        }
     }
 
     public void moverCliente(){
+        calcularMenorFila();
         for (Caixa caixa: listaCaixa){
             if(caixa.getFila().getQuantidadeClientes() > menorFila.getQuantidadeClientes()){
                 Cliente cliente = caixa.getFila().removerCliente((caixa.getFila().getQuantidadeClientes())-1);

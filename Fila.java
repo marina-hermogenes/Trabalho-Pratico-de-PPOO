@@ -22,11 +22,7 @@ public class Fila {
     }
 
     public ArrayList<Cliente> getListaClientes(){
-        ArrayList<Cliente> novaLista = new ArrayList<Cliente>();
-        for (Cliente cliente : listaClientes) {
-            novaLista.add(cliente.clone());
-        }
-        return novaLista;
+        return listaClientes;
     }
 
     public int getQuantidadeClientes(){
